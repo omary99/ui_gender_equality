@@ -6,6 +6,7 @@ class VideoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       width: MediaQuery.of(context).size.width * 0.46,
       child: AspectRatio(
         aspectRatio: 1.6,
@@ -15,7 +16,9 @@ class VideoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
+
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
                   image: NetworkImage('https://picsum.photos/200/300'),
                   fit: BoxFit.cover,

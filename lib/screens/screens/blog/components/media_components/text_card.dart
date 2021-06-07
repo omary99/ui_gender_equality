@@ -7,15 +7,15 @@ class TextCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: Text(
-          report.caption,
-          style: Theme.of(context).textTheme.bodyText1,
-          maxLines: 10,
-          overflow: TextOverflow.ellipsis,
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.teal.withOpacity(0.5)
+      ),
+      child: Text(
+        report.caption,
+        style: Theme.of(context).textTheme.bodyText1,
+        maxLines: 10,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

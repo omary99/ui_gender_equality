@@ -11,13 +11,16 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: ListView.separated(
+          child: ListView.builder(
               itemBuilder: (_, index) {
-                return _getReport(mediaSamplesData[index]);
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: _getReport(mediaSamplesData[index]),
+                );
               },
-              separatorBuilder: (BuildContext context, int index) => Divider(),
               itemCount: mediaSamplesData.length),
         ),
         Padding(
@@ -32,7 +35,7 @@ class ReportScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.face),
+                        icon: Icon(Icons.face, color: Colors.black),
                         onPressed: () {},
                       ),
                       Expanded(child: TextField()),
@@ -45,15 +48,20 @@ class ReportScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                width: 5,
+              ),
               Container(
                 height: 40,
                 width: 40,
                 child: Center(
-                  child: Icon(Icons.mic, color: Colors.white,),
+                  child: Icon(
+                    Icons.mic,
+                    color: Colors.white,
+                  ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: Colors.teal, shape: BoxShape.circle),
               )
             ],
           ),

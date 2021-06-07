@@ -6,13 +6,13 @@ class AudioCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0),
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-            color: Colors.teal, borderRadius: BorderRadius.circular(10)),
+            color: Colors.teal.withOpacity(0.5), borderRadius: BorderRadius.circular(10)),
         child: Row(
-
+mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(width: 5,),
             CircleAvatar(
@@ -27,7 +27,7 @@ class AudioCard extends StatelessWidget {
               size: 30,
             ),
             Slider(
-              activeColor: Colors.grey,
+              activeColor: Colors.white,
               value: 0.0, onChanged: (value) {})
           ],
         ),

@@ -9,7 +9,7 @@ class App extends StatelessWidget {
       title: 'GENDER EQUALITY',
       theme: ThemeData(
  
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
         
       ),
       debugShowCheckedModeBanner: false,

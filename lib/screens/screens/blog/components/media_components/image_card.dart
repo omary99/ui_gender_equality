@@ -12,9 +12,12 @@ class ImageCard extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1.7,
         child: ClipRRect(
-          child: Image(
-            image: NetworkImage(report.media.first),
-            fit: BoxFit.cover,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(report.media.first), fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
         ),
       ),
