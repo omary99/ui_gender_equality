@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gender_equality/screens/pages/drawer_page.dart';
 import 'package:gender_equality/screens/screens/blog/blog_screen.dart';
 import 'package:gender_equality/screens/screens/education_screen.dart';
 import 'package:gender_equality/screens/screens/report_screen.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(child: DrawerPage()),
       appBar: AppBar(
         title: Text('Gender Equality'),
       ),
