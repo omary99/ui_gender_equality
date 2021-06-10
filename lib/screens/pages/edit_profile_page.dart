@@ -45,23 +45,60 @@ class EditProfilePage extends StatelessWidget {
                   ),
                 ],
               )),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('name'),
-            subtitle: Text('This name it appeared typer gtypot '),
+          Container(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Name'),
+                  subtitle: Text(
+                    'Faith',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  trailing: Icon(
+                    Icons.edit,
+                    color: Colors.teal,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 70.0),
+                  child: Text(
+                    'This is not your username or pin. This name will be visible to your watsap contacts',
+                    maxLines: 2,
+                  ),
+                )
+              ],
+            ),
           ),
-          Divider(),
+          Divider(
+            endIndent: 10,
+          ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text('about'),
+            title: Text(
+              'About',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
             subtitle: Text(
-                'what i like about photography is that they capter a momemt that gone forever, impossible to reproduce'),
+              'what i like about photography is that they capter a momemt that gone forever, impossible to reproduce',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            trailing: Icon(
+              Icons.edit,
+              color: Colors.teal,
+            ),
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.phone),
-            title: Text('phone'),
-            subtitle: Text('+255 684 623 872'),
+            title: Text(
+              'Phone',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+            subtitle: Text(
+              '+255 684 623 872',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           )
         ],
       ),
