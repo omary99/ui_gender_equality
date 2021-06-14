@@ -19,18 +19,19 @@ class PostService with ChangeNotifier {
   List<PostModel> get postList => _postLists;
 
   //methods or functions
+
   // Future<bool> fetchPosts() async {
   //   bool _hasError = false;
-  //   // _postLists = samplePostsData;
-  //   final response = await http.get(Uri.parse(httpApi));
+  //   _postLists = samplePostsData;
   //   notifyListeners();
   //   return _hasError;
   // }
 
   Future<bool> fetchPosts() async {
+    print('tyiu');
     bool _hasError = false;
     final List<PostModel> _fetchedPosts = [];
-    final response = await http.get(Uri.parse('$httpApi' + 'blog/posts'),
+    final response = await http.get(Uri.parse('$httpApi' + 'blog/posts/100'),
         headers: {"accept": "application/json"});
 
     print(response.body);
@@ -42,6 +43,7 @@ class PostService with ChangeNotifier {
       });
 
       _postLists = _fetchedPosts;
+      print(_postLists.length);
       notifyListeners();
     } else {
       _hasError = true;

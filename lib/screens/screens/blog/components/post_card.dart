@@ -16,7 +16,9 @@ class PostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(post.avatar),
+              backgroundImage: post.avatar!=null? NetworkImage(
+                    post.avatar!): NetworkImage(
+                    'https://picsum.photos/seed/picsum/200/300'),
             ),
             SizedBox(
               width: 5,
@@ -48,13 +50,16 @@ class PostCard extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  Container(
+                post.images.isNotEmpty? Container(
                       decoration: BoxDecoration(
                           color: Colors.teal,
                           image: DecorationImage(
-                              image: NetworkImage(post.image), fit: BoxFit.cover),
+                              image: NetworkImage(post.images[0]),
+                              fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(20)),
-                      height: 200),
+                      height: 200):Container(height: 20, color: Colors.amber,)
+                      
+                      ,
                   Row(
                     children: [
                       IconButton(

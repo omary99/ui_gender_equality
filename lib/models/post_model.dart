@@ -1,10 +1,10 @@
 class PostModel {
   final int id;
-  final String avatar;
+  final String? avatar;
   final String authorName;
   final String title;
   final String content;
-  final String image;
+  final List<dynamic> images;
 
   PostModel(
       {required this.id,
@@ -12,7 +12,7 @@ class PostModel {
       required this.title,
       required this.avatar,
       required this.content,
-      required this.image});
+      required this.images});
 
   PostModel.fromMap(Map<String, dynamic> map)
       : assert(map['id'] != null),
@@ -23,7 +23,7 @@ class PostModel {
         title = map['title'],
         avatar = map['avatar'],
         content = map['content'],
-        image = map['images'];
+        images = map['images'];
 }
 
 // List<PostModel> samplePostsData = [
