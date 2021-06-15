@@ -48,13 +48,13 @@ class PostCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
-                post.images.isNotEmpty? Container(
+                post.image != null? Container(
                       decoration: BoxDecoration(
                           color: Colors.teal,
                           image: DecorationImage(
-                              image: NetworkImage(post.images[0]),
+                              image: NetworkImage(post.image!),
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(20)),
                       height: 200):Container(height: 20, color: Colors.amber,)
