@@ -1,46 +1,28 @@
 class ReportModel {
   final int id;
+  final double latitude;
+  final double longitude;
   final String mediaType;
-  final List<String> media;
+  final List<dynamic> media;
   final String caption;
 
-  ReportModel(
+  ReportModel( 
       {required this.id,
+      required this.latitude, 
+      required this.longitude,
       required this.media,
       required this.mediaType,
       required this.caption});
-}
 
-List<ReportModel> mediaSamplesData = [
-  ReportModel(
-    id: 1,
-    caption: 'hello how are you',
-    media: ['https://picsum.photos/200/300'],
-    mediaType: 'image',
-  ),
-  ReportModel(
-    id: 2,
-    caption: 'hello how are you',
-    media: ['https://picsum.photos/200/300'],
-    mediaType: 'audio',
-  ),
-  ReportModel(
-    id: 5,
-    caption: 'hello how are you sjakl',
-    media: ['https://picsum.photos/200/300'],
-    mediaType: 'text',
-  ),
-  ReportModel(
-    id: 3,
-    caption: 'hello how are you',
-    media: ['https://picsum.photos/200/300'],
-    mediaType: 'video',
-  ),
-  ReportModel(
-    id: 4,
-    caption:
-        'hello how are you sjakl lask aska kslaks oaskla cjka slas lask sklas lkasl',
-    media: ['https://picsum.photos/200/300'],
-    mediaType: 'text',
-  ),
-];
+  ReportModel.fromMap(Map<String, dynamic> map)
+      : assert(map['id'] != null),
+        assert(map['media'] != null),
+        assert(map['caption'] != null),
+        id = map['id'],
+        latitude= double.parse(map['latitude'].toString()),
+        longitude= double.parse(map['longitude'].toString()),
+        media = map['media'],
+        mediaType = map['media_type'],
+        caption = map['caption'];
+  
+}

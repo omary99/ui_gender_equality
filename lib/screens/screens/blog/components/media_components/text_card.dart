@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gender_equality/models/report_model.dart';
 
 class TextCard extends StatelessWidget {
@@ -8,15 +9,45 @@ class TextCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.teal.withOpacity(0.5)
-      ),
-      child: Text(
-        report.caption,
-        style: Theme.of(context).textTheme.bodyText1,
-        maxLines: 10,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
+        height: 150,
+        child: Column(
+          children: [
+            report.caption.isNotEmpty
+                ? Text(
+                    report.caption,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                : Text('Hello there is no caption yet'),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.checkDouble,
+                  size: 15,
+                  color: Colors.blue,
+                ),
+                Spacer(),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.green,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.green,
+                    )),
+              ],
+            )
+          ],
+        ));
   }
 }

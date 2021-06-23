@@ -8,9 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'GENDER EQUALITY',
       theme: ThemeData(
- 
         primarySwatch: Colors.teal,
-        
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),

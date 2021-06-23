@@ -1,1 +1,2 @@
-const httpApi = "http://192.168.1.13:8000/api/";
+const httpApi = "http://192.168.1.30:8000/api/";
+const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4LjEuMzA6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTYyNDM2MjcyOSwiZXhwIjoxNjI0MzY2MzI5LCJuYmYiOjE2MjQzNjI3MjksImp0aSI6IlNMN0xITFhIdWZGTjhGSDIiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.CqQVggl_9ocK-ZvoCXFeQGX8uLfxiVBdegySq8Jb9s8";
