@@ -4,6 +4,7 @@ import 'package:gender_equality/screens/screens/blog/components/media_components
 import 'package:gender_equality/screens/screens/blog/components/media_components/image_card.dart';
 import 'package:gender_equality/screens/screens/blog/components/media_components/text_card.dart';
 import 'package:gender_equality/screens/screens/blog/components/media_components/video_card.dart';
+import 'package:gender_equality/screens/screens/image_screen.dart';
 import 'package:gender_equality/services/services.dart';
 import 'package:provider/provider.dart';
 
@@ -77,8 +78,20 @@ class _ReportScreenState extends State<ReportScreen> {
                               });
                             }
                           },
-                        )),
-                        Icon(Icons.attach_file),
+                        )
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _reportService.chooseImage().then((value) {
+                                if (value) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => ImageScreen()));
+                                }
+                              });
+                            },
+                            icon: Icon(Icons.attach_file)),
                         Icon(Icons.camera_alt),
                         SizedBox(
                           width: 5,
