@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gender_equality/models/report_model.dart';
 
 class TextCard extends StatelessWidget {
@@ -8,46 +7,53 @@ class TextCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 150,
-        child: Column(
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            report.caption.isNotEmpty
-                ? Text(
-                    report.caption,
-                    style: Theme.of(context).textTheme.bodyText1,
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,
-                  )
-                : Text('Hello there is no caption yet'),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Stack(
               children: [
-                FaIcon(
-                  FontAwesomeIcons.checkDouble,
-                  size: 15,
-                  color: Colors.blue,
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.75,
+                    minWidth: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: report.caption.isNotEmpty
+                        ? Text(
+                            report.caption,
+                            style: TextStyle(color: Colors.black),
+                            maxLines: 16,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : Text('Hello there is no caption yet'),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(5),
+                    ),
+                    color: Colors.teal.withOpacity(0.5),
+                  ),
                 ),
-                Spacer(),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.green,
-                    )),
-                SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.edit,
-                      color: Colors.green,
-                    )),
+                Positioned(
+                    bottom: 3,
+                    right: 3,
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 15,
+                    ))
               ],
             )
           ],
-        ));
+        )
+      ],
+    );
+   
   }
 }

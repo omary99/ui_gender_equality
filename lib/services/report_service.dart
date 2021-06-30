@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gender_equality/constants/apis.dart';
+import 'package:gender_equality/constants/enum.dart';
 import 'package:gender_equality/models/report_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -12,20 +13,55 @@ class ReportService with ChangeNotifier {
   ReportService() {
     fetchReports();
   }
+//file types
+
+  FileType _fileType = FileType.Image;
+
+  set setFileType(FileType type) {
+    _fileType = type;
+    notifyListeners();
+  }
+
+//getters
+  FileType get seletedFileType => _fileType;
 
   //method for image picker
-  File? _imageFile;
+  File? _mediaFile;
   final _picker = ImagePicker();
   Future<bool> chooseImage() async {
     bool _isPicked = false;
     final PickedFile? pickedFile =
         await _picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      _imageFile = File(pickedFile.path);
+      _mediaFile = File(pickedFile.path);
       _isPicked = true;
     }
+
+//This will set the file type
+    setFileType = FileType.Image;
+    //_mediaFile.
     notifyListeners();
     return _isPicked;
+  }
+
+  //method for video picker
+
+  final _videoPicker = ImagePicker();
+  Future<bool> chooseVideo() async {
+    bool _isVideoPicked = false;
+    final PickedFile? pickedFile =
+        await _videoPicker.getVideo(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      _mediaFile = File(pickedFile.path);
+      _isVideoPicked = true;
+    }
+
+    //This will set the file type
+    setFileType = FileType.Video;
+    notifyListeners();
+    print('hello');
+    return _isVideoPicked;
   }
 
   //variables
@@ -34,9 +70,11 @@ class ReportService with ChangeNotifier {
   //setters
   //getters
   List<ReportModel> get reportList => _reportLists;
-  File? get selectedImageFile => _imageFile;
+  File? get selectedMediaFile => _mediaFile;
 
   //methods
+
+  //fetched reports method
   Future<bool> fetchReports() async {
     bool _hasError = false;
     final List<ReportModel> _fetchedReports = [];
@@ -61,6 +99,7 @@ class ReportService with ChangeNotifier {
     return _hasError;
   }
 
+//send reports methods
   Future<bool> sendReports(String caption) async {
     bool _hasError = false;
     final Map<String, dynamic> _body = {
@@ -92,20 +131,20 @@ class ReportService with ChangeNotifier {
     return _hasError;
   }
 
-  Future<bool> sendReportWithImage(String fileName) async {
+//send reports with image methods
+  Future<bool> sendReportWithMedia(String fileName) async {
     Dio dio = new Dio();
     bool _hasError = false;
     final Map<String, dynamic> _body = {
       'body': fileName,
       'latitude': '21.98',
       'longitude': '34.56',
-      'media_type': 'text',
-      "file":
-          await MultipartFile.fromFile(_imageFile!.path, filename: "media_file")
+      'media_type':_fileType == FileType.Image ?'image':'video',
+      'media_file':
+          await MultipartFile.fromFile(_mediaFile!.path, filename: "media_file")
     };
 
     final Map<String, String> _headers = {
-      "accepts": "application/json",
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
 
@@ -114,8 +153,13 @@ class ReportService with ChangeNotifier {
             data: FormData.fromMap(_body), options: Options(headers: _headers))
         .then((response) {
       final Map<String, dynamic> data = response.data;
+
+      final _reportImage = ReportModel.fromMap(data['data']);
+      _reportLists.add(_reportImage);
+
+      notifyListeners();
       print(data);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         _hasError = false;
       } else {
         _hasError = true;

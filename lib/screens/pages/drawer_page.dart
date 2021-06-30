@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gender_equality/screens/pages/account_setting_page.dart';
+import 'package:gender_equality/screens/pages/setting_page.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);

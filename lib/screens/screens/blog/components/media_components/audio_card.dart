@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class AudioCard extends StatelessWidget {
   const AudioCard({Key? key}) : super(key: key);
@@ -12,7 +12,8 @@ class AudioCard extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           child: Container(
             height: 50,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.teal.withOpacity(0.5)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -39,22 +40,6 @@ class AudioCard extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          children: [
-            FaIcon(
-              FontAwesomeIcons.checkDouble,
-              size: 15,
-              color: Colors.blue,
-            ),
-            Spacer(),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.green,
-                ))
-          ],
-        )
       ],
     );
   }

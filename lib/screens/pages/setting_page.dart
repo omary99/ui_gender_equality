@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gender_equality/screens/pages/account_page.dart';
+import 'package:gender_equality/screens/pages/chats_page.dart';
 import 'package:gender_equality/screens/pages/edit_profile_page.dart';
 
 class AccountSettingPage extends StatelessWidget {
@@ -75,10 +76,18 @@ class AccountSettingPage extends StatelessWidget {
               subtitle: Text('Privacy, Security, change number'),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.chat, color: Colors.teal),
-            title: Text('Chats'),
-            subtitle: Text('Themes, Wallpapers, chat history'),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return ChatsPage();
+              }));
+            },
+            child: ListTile(
+              leading: Icon(Icons.chat, color: Colors.teal),
+              title: Text('Chats'),
+              subtitle: Text('Themes, Wallpapers, chat history'),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.notifications, color: Colors.teal),

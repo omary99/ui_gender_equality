@@ -3,7 +3,7 @@ class ReportModel {
   final double latitude;
   final double longitude;
   final String mediaType;
-  final List<dynamic> media;
+  final String? media;
   final String caption;
 
   ReportModel( 

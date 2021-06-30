@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:gender_equality/models/report_model.dart';
 
 class ImageCard extends StatelessWidget {
@@ -10,40 +10,46 @@ class ImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: AspectRatio(
-            aspectRatio: 1.7,
-            child: ClipRRect(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: report.media.isNotEmpty
-                          ? NetworkImage(report.media.first)
-                          : NetworkImage('https://picsum.photos/200/300'),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-          ),
-        ),
         Row(
           children: [
-             FaIcon(
-                  FontAwesomeIcons.checkDouble,
-                  size: 15,
-                  color: Colors.blue,
+            Stack(
+              children: [
+                Container(
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.70,
+                      minWidth: MediaQuery.of(context).size.width * 0.05),
+                  padding: EdgeInsets.all(8.0),
+                  child: Image(
+                    image: report.media!.isNotEmpty
+                        ? NetworkImage(report.media!)
+                        : NetworkImage('https://picsum.photos/200/300'),
+                    fit: BoxFit.cover,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.teal.withOpacity(0.5),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(5)),
+                  ),
                 ),
-            Spacer(),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.green,
-                ))
+                Positioned(
+                  right: 10,
+                  bottom: 10,
+                  child: Container(
+                    color: Colors.grey.withOpacity(0.2),
+                    child: Icon(
+                      Icons.check,
+                      size: 15.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
-        )
+        ),
       ],
     );
   }

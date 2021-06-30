@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gender_equality/models/message_model.dart';
-import 'package:gender_equality/screens/screens/blog/components/incoming_card.dart';
+import 'package:gender_equality/screens/screens/blog/components/message_card.dart';
 
 class EducationScreen extends StatefulWidget {
    EducationScreen({Key? key}) : super(key: key);
