@@ -35,6 +35,12 @@ dependencies:
   dio: ^4.0.0
   emoji_picker_flutter: ^1.0.6
   video_player: ^2.1.6
+  wechat_assets_picker: ^5.5.8
+  wechat_camera_picker: ^2.2.0
+  extended_image: ^4.1.0
+  path: ^1.8.0
+  path_provider: ^2.0.2
+  
   
   
   

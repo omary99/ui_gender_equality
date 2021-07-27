@@ -9,6 +9,7 @@ import 'package:gender_equality/screens/screens/blog/components/media_components
 import 'package:gender_equality/screens/screens/blog/components/media_components/video_card.dart';
 import 'package:gender_equality/screens/screens/media_screen.dart';
 import 'package:gender_equality/services/services.dart';
+import 'package:gender_equality/wechat/pages/gallery_page.dart';
 import 'package:provider/provider.dart';
 
 class ReportScreen extends StatefulWidget {
@@ -237,9 +238,8 @@ class _ReportScreenState extends State<ReportScreen> {
                               decoration: InputDecoration(
                                   focusedBorder: InputBorder.none,
                                   disabledBorder: InputBorder.none,
-                                   border: InputBorder.none,
-                                  hintText: "Type message"
-                                  ),
+                                  border: InputBorder.none,
+                                  hintText: "Type message"),
                               focusNode: _focusNode,
                               controller: _controller,
                               validator: (value) {
@@ -285,9 +285,17 @@ class _ReportScreenState extends State<ReportScreen> {
                                   Icons.attach_file,
                                   color: Colors.teal,
                                 )),
-                            Icon(
-                              Icons.camera_alt,
-                              color: Colors.teal,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => GalleryPage()));
+                              },
+                              icon: Icon(
+                                Icons.camera_alt,
+                                color: Colors.teal,
+                              ),
                             ),
                             SizedBox(
                               width: 5,
@@ -368,7 +376,7 @@ class _ReportScreenState extends State<ReportScreen> {
         return AudioCard();
       case 'video':
         return VideoCard(
-           report: report,
+          report: report,
         );
       case 'image':
         return ImageCard(
