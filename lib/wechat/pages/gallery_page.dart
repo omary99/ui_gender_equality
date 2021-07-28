@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constants/screens.dart';
- 
 
 import 'multi_assets_page.dart';
-
 
 bool get currentIsDark =>
     Screens.mediaQuery.platformBrightness == Brightness.dark;
@@ -58,10 +56,7 @@ class _GalleryPageState extends State<GalleryPage> {
       height: 60.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-         
-    
-        ],
+        children: <Widget>[],
       ),
     );
   }
@@ -73,10 +68,10 @@ class _GalleryPageState extends State<GalleryPage> {
         children: <Widget>[
           header(context),
           Expanded(
-            child:     MultiAssetsPage(),
+            child: MultiAssetsPage(),
           ),
         ],
       ),
-  );
+    );
   }
 }

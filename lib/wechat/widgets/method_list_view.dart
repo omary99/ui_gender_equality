@@ -22,7 +22,6 @@ class MethodListView extends StatelessWidget {
       onTap: () => onSelectMethod(model),
       onLongPress: model.onLongPress,
       child: Container(
-        color: Colors.amber,
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
           vertical: 10.0,
@@ -31,7 +30,7 @@ class MethodListView extends StatelessWidget {
           children: [
             ClipOval(
               child: Container(
-                color: Colors.red,
+                color: Colors.teal,
                 width: 50,
                 height: 50,
                 child: Center(
@@ -45,7 +44,7 @@ class MethodListView extends StatelessWidget {
             Text(
               model.name,
               style: const TextStyle(
-                fontSize: 18.0,
+                fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),
             )
@@ -60,11 +59,12 @@ class MethodListView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.only(bottom: 10.0),
       child: GridView.builder(
+        shrinkWrap: true,
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         itemCount: pickMethods.length,
         itemBuilder: methodItemBuilder,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       ),
     );
   }

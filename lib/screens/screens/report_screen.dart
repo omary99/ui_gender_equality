@@ -7,9 +7,9 @@ import 'package:gender_equality/screens/screens/blog/components/media_components
 import 'package:gender_equality/screens/screens/blog/components/media_components/image_card.dart';
 import 'package:gender_equality/screens/screens/blog/components/media_components/text_card.dart';
 import 'package:gender_equality/screens/screens/blog/components/media_components/video_card.dart';
-import 'package:gender_equality/screens/screens/media_screen.dart';
 import 'package:gender_equality/services/services.dart';
 import 'package:gender_equality/wechat/pages/gallery_page.dart';
+import 'package:gender_equality/wechat/pages/multi_assets_page.dart';
 import 'package:provider/provider.dart';
 
 class ReportScreen extends StatefulWidget {
@@ -76,132 +76,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                   duration: Duration(milliseconds: 1),
                   curve: Curves.fastOutSlowIn,
-                  child: _showButton
-                      ? Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.blueGrey,
-                                        ),
-                                        height: 50,
-                                        width: 50,
-                                        child: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.audiotrack,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text("Audio",
-                                          style: TextStyle(color: Colors.grey))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.pink,
-                                        ),
-                                        height: 50,
-                                        width: 50,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            _reportService
-                                                .chooseImage()
-                                                .then((value) {
-                                              if (value) {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            MediaScreen()));
-                                              }
-                                            });
-                                            setState(() {
-                                              _containerHeight = 0.0;
-                                              _attachmentContainerIsOpened =
-                                                  false;
-                                              _showButton = false;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.image,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Image",
-                                        style: TextStyle(color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.purple,
-                                        ),
-                                        height: 50,
-                                        width: 50,
-                                        child: Center(
-                                          child: IconButton(
-                                            onPressed: () {
-                                              _reportService
-                                                  .chooseVideo()
-                                                  .then((value) {
-                                                if (value) {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) =>
-                                                              MediaScreen()));
-                                                }
-                                              });
-                                              setState(() {
-                                                _containerHeight = 0.0;
-                                                _attachmentContainerIsOpened =
-                                                    false;
-                                                _showButton = false;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.video_label,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text("Video",
-                                          style: TextStyle(color: Colors.grey))
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      : Container(),
+                  child: _showButton ? MultiAssetsPage() : Container(),
                 ),
               ),
             ),
