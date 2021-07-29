@@ -8,6 +8,7 @@ import 'package:gender_equality/constants/enum.dart';
 import 'package:gender_equality/models/report_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class ReportService with ChangeNotifier {
   ReportService() {
@@ -132,16 +133,23 @@ class ReportService with ChangeNotifier {
   }
 
 //send reports with image methods
-  Future<bool> sendReportWithMedia(String fileName) async {
+  Future<bool> sendReportWithMedia(
+      {String? caption, required AssetEntity asset}) async {
+    File? _file = await asset.file;
+    print(
+        "00000000000000000000000000000000000000000000000000000000000000000000");
+    print(_file!.path);
+        print(
+        "00000000000000000000000000000000000000000000000000000000000000000000");
     Dio dio = new Dio();
     bool _hasError = false;
     final Map<String, dynamic> _body = {
-      'body': fileName,
+      'body': caption,
       'latitude': '21.98',
       'longitude': '34.56',
-      'media_type':_fileType == FileType.Image ?'image':'video',
+      'media_type': asset.type.toString(),
       'media_file':
-          await MultipartFile.fromFile(_mediaFile!.path, filename: "media_file")
+          await MultipartFile.fromFile(_file.path, filename: "media_file")
     };
 
     final Map<String, String> _headers = {

@@ -1,16 +1,16 @@
-///
-/// [Author] Alex (https://github.com/AlexV525)
-/// [Date] 2021/7/13 10:51
-///
 import 'package:flutter/material.dart';
+import 'package:gender_equality/screens/screens/components/input_field.dart';
+import 'package:gender_equality/services/gallery_service.dart';
+import 'package:gender_equality/services/report_service.dart';
+import 'package:provider/provider.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     show AssetEntity, AssetPicker, AssetPickerViewer;
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
- 
 import 'asset_widget_builder.dart';
 
-class SelectedAssetsListView extends StatelessWidget {
-  const SelectedAssetsListView({
+class SelectedAssetsListView extends StatefulWidget {
+  SelectedAssetsListView({
     Key? key,
     required this.assets,
     required this.isDisplayingDetail,
@@ -23,10 +23,33 @@ class SelectedAssetsListView extends StatelessWidget {
   final Function(List<AssetEntity>? result) onResult;
   final Function(int index) onRemoveAsset;
 
+  @override
+  _SelectedAssetsListViewState createState() => _SelectedAssetsListViewState();
+}
+
+class _SelectedAssetsListViewState extends State<SelectedAssetsListView> {
+  final PageController _pageController = PageController(initialPage: 0);
+
+  List<Widget> _inputFields = [];
+  List<String> _inputFieldsText = [];
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (int i = 0; i < widget.assets.length; i++) {
+      _inputFieldsText.add('');
+      _inputFields.add(InputField(
+        isFromMedia: true,
+      ));
+    }
+  }
+
   Widget _selectedAssetWidget(BuildContext context, int index) {
-    final AssetEntity asset = assets.elementAt(index);
+    final AssetEntity asset = widget.assets.elementAt(index);
     return ValueListenableBuilder<bool>(
-      valueListenable: isDisplayingDetail,
+      valueListenable: widget.isDisplayingDetail,
       builder: (_, bool value, __) => GestureDetector(
         onTap: () async {
           if (value) {
@@ -34,10 +57,10 @@ class SelectedAssetsListView extends StatelessWidget {
                 await AssetPickerViewer.pushToViewer(
               context,
               currentIndex: index,
-              previewAssets: assets,
-              themeData: AssetPicker.themeData(Colors.green),
+              previewAssets: widget.assets,
+              themeData: AssetPicker.themeData(Colors.pink),
             );
-            onResult(result);
+            widget.onResult(result);
           }
         },
         child: RepaintBoundary(
@@ -55,7 +78,7 @@ class SelectedAssetsListView extends StatelessWidget {
 
   Widget _selectedAssetDeleteButton(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () => onRemoveAsset(index),
+      onTap: () => widget.onRemoveAsset(index),
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
@@ -66,84 +89,108 @@ class SelectedAssetsListView extends StatelessWidget {
     );
   }
 
-  Widget get selectedAssetsListView {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        scrollDirection: Axis.horizontal,
-        itemCount: assets.length,
-        itemBuilder: (BuildContext c, int index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 16.0,
-            ),
-            child: AspectRatio(
-              aspectRatio: 1.0,
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(child: _selectedAssetWidget(c, index)),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: isDisplayingDetail,
-                    builder: (_, bool value, __) => AnimatedPositioned(
-                      duration: kThemeAnimationDuration,
-                      top: value ? 6.0 : -30.0,
-                      right: value ? 6.0 : -30.0,
-                      child: _selectedAssetDeleteButton(c, index),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: isDisplayingDetail,
-      builder: (_, bool value, __) => AnimatedContainer(
-        duration: kThemeChangeDuration,
-        curve: Curves.easeInOut,
-        height: assets.isNotEmpty
-            ? value
-                ? 120.0
-                : 80.0
-            : 40.0,
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20.0,
-              child: GestureDetector(
-                onTap: () {
-                  if (assets.isNotEmpty) {
-                    isDisplayingDetail.value = !isDisplayingDetail.value;
-                  }
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Text('Selected Assets'),
-                    if (assets.isNotEmpty)
+    final _galleryService = Provider.of<GalleryService>(context);
+    final _reportservice = Provider.of<ReportService>(context);
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+            '${_galleryService.currentPage + 1} / ${widget.assets.length}'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: PageView(
+        onPageChanged: (index) {
+          _galleryService.setCurrentPage = index;
+        },
+        scrollDirection: Axis.horizontal,
+        controller: _pageController,
+        children: widget.assets
+            .map((e) => SingleChildScrollView(
+                  child: Column(
+                    children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 10.0),
-                        child: Icon(
-                          value ? Icons.arrow_downward : Icons.arrow_upward,
-                          size: 18.0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 16.0,
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1.0,
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                  child: _selectedAssetWidget(
+                                      context, _galleryService.currentPage)),
+                              ValueListenableBuilder<bool>(
+                                valueListenable: widget.isDisplayingDetail,
+                                builder: (_, bool value, __) =>
+                                    AnimatedPositioned(
+                                  duration: kThemeAnimationDuration,
+                                  top: value ? 6.0 : -30.0,
+                                  right: value ? 6.0 : -30.0,
+                                  child: _selectedAssetDeleteButton(
+                                      context, _galleryService.currentPage),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                  ],
-                ),
-              ),
-            ),
-            selectedAssetsListView,
-          ],
-        ),
+                      Row(children: [
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios,
+                            size: 15, color: Colors.white),
+                      ]),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: _inputFields[_galleryService.currentPage]),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                _isLoading = true;
+                                for (int i = 0; i < widget.assets.length; i++) {
+                                  _reportservice
+                                      .sendReportWithMedia(
+                                          caption: _inputFieldsText[i],
+                                          asset: widget.assets[i])
+                                      .then((value) {
+                                    if (i == widget.assets.length - 1) {
+                                      setState(() {
+                                        _isLoading = false;
+                                        Navigator.pop(context);
+                                      });
+                                    }
+                                  });
+                                }
+                              },
+                              child: ClipOval(
+                                child: Material(
+                                    color: Colors.teal,
+                                    child: SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: _isLoading
+                                          ? CircularProgressIndicator(
+                                              strokeWidth: 2.0,
+                                            )
+                                          : Icon(Icons.send,
+                                              color: Colors.white),
+                                    )),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
       ),
     );
   }

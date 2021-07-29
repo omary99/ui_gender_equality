@@ -3,6 +3,7 @@
 /// [Date] 2020-05-30 20:56
 ///
 import 'package:flutter/material.dart';
+import 'package:gender_equality/wechat/constants/upload_media_screen.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -22,10 +23,17 @@ class PickMethod {
       description: 'Only pick image from device.',
       method: (BuildContext context, List<AssetEntity> assets) {
         return AssetPicker.pickAssets(context,
-            maxAssets: maxAssetsCount,
-            selectedAssets: assets,
-            requestType: RequestType.image,
-            textDelegate: EnglishTextDelegate());
+                maxAssets: maxAssetsCount,
+                selectedAssets: assets,
+                requestType: RequestType.image,
+                textDelegate: EnglishTextDelegate())
+            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -37,10 +45,17 @@ class PickMethod {
       description: 'Only pick video from device.',
       method: (BuildContext context, List<AssetEntity> assets) {
         return AssetPicker.pickAssets(context,
-            maxAssets: maxAssetsCount,
-            selectedAssets: assets,
-            requestType: RequestType.video,
-            textDelegate: EnglishTextDelegate());
+                maxAssets: maxAssetsCount,
+                selectedAssets: assets,
+                requestType: RequestType.video,
+                textDelegate: EnglishTextDelegate())
+            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -52,10 +67,17 @@ class PickMethod {
       description: 'Only pick audio from device.',
       method: (BuildContext context, List<AssetEntity> assets) {
         return AssetPicker.pickAssets(context,
-            maxAssets: maxAssetsCount,
-            selectedAssets: assets,
-            requestType: RequestType.audio,
-            textDelegate: EnglishTextDelegate());
+                maxAssets: maxAssetsCount,
+                selectedAssets: assets,
+                requestType: RequestType.audio,
+                textDelegate: EnglishTextDelegate())
+            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -93,7 +115,13 @@ class PickMethod {
               ),
             );
           },
-        );
+        ).then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -135,7 +163,13 @@ class PickMethod {
               ),
             );
           },
-        );
+        )            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -150,7 +184,13 @@ class PickMethod {
             maxAssets: maxAssetsCount,
             selectedAssets: assets,
             requestType: RequestType.common,
-            textDelegate: EnglishTextDelegate());
+            textDelegate: EnglishTextDelegate())            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -168,7 +208,13 @@ class PickMethod {
             maxAssets: maxAssetsCount,
             selectedAssets: assets,
             requestType: RequestType.all,
-            textDelegate: EnglishTextDelegate());
+            textDelegate: EnglishTextDelegate())            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }
@@ -197,7 +243,13 @@ class PickMethod {
                 ),
               ),
             ),
-        );
+        )            .then((assets) {
+          if (assets != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return UploadMediaScreen(assets: assets);
+            }));
+          }
+        });
       },
     );
   }

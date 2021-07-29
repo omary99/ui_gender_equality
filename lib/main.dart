@@ -4,8 +4,6 @@ import 'package:gender_equality/services/services.dart';
 import 'package:provider/provider.dart';
 import 'services/post_service.dart';
 
-
-
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -13,6 +11,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (_) => ReportService(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => GalleryService(),
     ),
   ], child: App()));
 }
