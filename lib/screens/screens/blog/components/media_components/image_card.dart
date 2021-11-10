@@ -19,11 +19,22 @@ class ImageCard extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.70,
                       minWidth: MediaQuery.of(context).size.width * 0.05),
                   padding: EdgeInsets.all(8.0),
-                  child: Image(
-                    image: report.media!.isNotEmpty
-                        ? NetworkImage(report.media!)
-                        : NetworkImage('https://picsum.photos/200/300'),
-                    fit: BoxFit.cover,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image(
+                        image: report.media!.isNotEmpty
+                            ? NetworkImage(report.media!)
+                            : NetworkImage('https://picsum.photos/200/300'),
+                        fit: BoxFit.cover,
+                      ),
+                      Text(
+                       report.caption != null? "${report.caption}" : "",
+                        softWrap: true,
+                      )
+                    ],
                   ),
                   decoration: BoxDecoration(
                     color: Colors.teal.withOpacity(0.5),

@@ -4,7 +4,7 @@ class ReportModel {
   final double longitude;
   final String mediaType;
   final String? media;
-  final String caption;
+  final String? caption;
 
   ReportModel( 
       {required this.id,
@@ -17,7 +17,7 @@ class ReportModel {
   ReportModel.fromMap(Map<String, dynamic> map)
       : assert(map['id'] != null),
         assert(map['media'] != null),
-        assert(map['caption'] != null),
+       
         id = map['id'],
         latitude= double.parse(map['latitude'].toString()),
         longitude= double.parse(map['longitude'].toString()),

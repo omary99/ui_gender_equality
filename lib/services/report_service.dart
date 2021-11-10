@@ -133,23 +133,45 @@ class ReportService with ChangeNotifier {
   }
 
 //send reports with image methods
-  Future<bool> sendReportWithMedia(
+  Future<bool> sendReporpptWithMedia(
       {String? caption, required AssetEntity asset}) async {
     File? _file = await asset.file;
-    print(
-        "00000000000000000000000000000000000000000000000000000000000000000000");
-    print(_file!.path);
-        print(
-        "00000000000000000000000000000000000000000000000000000000000000000000");
-    Dio dio = new Dio();
+    var dio = Dio();
+
     bool _hasError = false;
-    final Map<String, dynamic> _body = {
-      'body': caption,
+
+    var formData = FormData.fromMap({
+      'body': 'iyuyi',
       'latitude': '21.98',
       'longitude': '34.56',
-      'media_type': asset.type.toString(),
+      'media_type': asset.type.toString().replaceAll('AssetType.', ''),
+      'file': await MultipartFile.fromFile(_file!.path, filename: 'media_file'),
+    });
+    var response = await dio.post('$httpApi' + 'report', data: formData);
+
+    print(
+        "00000000000000000000000000000000000000000000000000000000000000000000");
+    print(response.data);
+    print(
+        "00000000000000000000000000000000000000000000000000000000000000000000");
+
+    return _hasError;
+  }
+
+//send reports with image methods
+  Future<bool> sendReportWithMedia(
+      { String?  caption, required AssetEntity asset}) async {
+    final _file = await asset.file;
+    Dio dio = new Dio();
+    bool _hasError = false;
+     
+    final Map<String, dynamic> _body = {
+      'body': caption  != null? caption: "",
+      'latitude': '21.98',
+      'longitude': '34.56',
+      'media_type': asset.type.toString().replaceAll('AssetType.', ''),
       'media_file':
-          await MultipartFile.fromFile(_file.path, filename: "media_file")
+          await MultipartFile.fromFile(_file!.path, filename: "media_file")
     };
 
     final Map<String, String> _headers = {

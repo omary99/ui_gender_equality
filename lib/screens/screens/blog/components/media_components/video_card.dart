@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gender_equality/constants/test.dart';
 import 'package:gender_equality/models/report_model.dart';
+import 'package:gender_equality/screens/screens/components/video/video_thumbnail.dart';
 
 class VideoCard extends StatelessWidget {
-  const VideoCard({Key? key,required this.report}) : super(key: key);
+  const VideoCard({Key? key, required this.report}) : super(key: key);
   final ReportModel report;
 
   @override
@@ -20,7 +20,20 @@ class VideoCard extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.70,
                       minWidth: MediaQuery.of(context).size.width * 0.05),
                   padding: EdgeInsets.all(8.0),
-                  child:  VideoContainer(play: false,   videoUrl: report.media,),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      VideoMessage(
+                        report: report,
+                      ),
+                      Text(
+                        report.caption != null ? "${report.caption}" : "",
+                        softWrap: true,
+                      )
+                    ],
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.teal.withOpacity(0.5),
                     borderRadius: BorderRadius.only(
@@ -30,14 +43,6 @@ class VideoCard extends StatelessWidget {
                         bottomRight: Radius.circular(5)),
                   ),
                 ),
-                Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: Center(child: Icon(Icons.play_arrow_rounded))),
                 Positioned(
                   right: 10,
                   bottom: 10,

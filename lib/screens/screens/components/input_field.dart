@@ -9,7 +9,11 @@ import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
   final bool isFromMedia;
-  const InputField({Key? key, this.isFromMedia = false}) : super(key: key);
+  final Function(String)? onChange;
+  final TextEditingController? controller;
+
+  const InputField({Key? key, this.isFromMedia = false, this.controller, this.onChange})
+      : super(key: key);
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -110,7 +114,7 @@ class _InputFieldState extends State<InputField> {
 
                             return null;
                           },
-                          onChanged: (value) {
+                          onChanged:widget.isFromMedia? widget.onChange: (value) {
                             print(value);
                             if (value.isEmpty) {
                               setState(() {

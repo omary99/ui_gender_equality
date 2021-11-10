@@ -42,6 +42,10 @@ class _SelectedAssetsListViewState extends State<SelectedAssetsListView> {
       _inputFieldsText.add('');
       _inputFields.add(InputField(
         isFromMedia: true,
+        onChange: (val) {
+          _inputFieldsText[i] = val;
+        },
+        controller: TextEditingController(),
       ));
     }
   }

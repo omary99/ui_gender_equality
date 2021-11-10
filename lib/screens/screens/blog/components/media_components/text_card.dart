@@ -20,16 +20,13 @@ class TextCard extends StatelessWidget {
                     minWidth: MediaQuery.of(context).size.width * 0.05,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: report.caption.isNotEmpty
-                        ? Text(
-                            report.caption,
-                            style: TextStyle(color: Colors.black),
-                            maxLines: 16,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : Text('Hello there is no caption yet'),
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        report.caption != null ? "${report.caption}" : "",
+                        style: TextStyle(color: Colors.black),
+                        maxLines: 16,
+                        overflow: TextOverflow.ellipsis,
+                      )),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(0),
@@ -54,6 +51,5 @@ class TextCard extends StatelessWidget {
         )
       ],
     );
-   
   }
 }
